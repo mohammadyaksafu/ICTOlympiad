@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Olympiad Prep &mdash; Basic ICT Concepts &amp; Computer Hardware/Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1F33;
+  --ink-2:#13314F;
+  --paper:#F6F1E7;
+  --paper-card:#FFFDF8;
+  --brass:#C8932B;
+  --brass-dark:#A87623;
+  --signal:#2F9E68;
+  --signal-dark:#1E7A52;
+  --alert:#C1432F;
+  --ink-soft:#4B6075;
+  --text:#1C2B3A;
+  --line:#E2D9C4;
+  --line-dark:#CBBE9D;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+  --serif:'Spectral', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', system-ui, -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--paper); color:var(--text);
+  font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;}
+code{font-family:var(--mono);}
+a{color:inherit;}
+button{font-family:inherit;}
+:focus-visible{outline:2.5px solid var(--brass); outline-offset:2px;}
+
+/* ---------- Header ---------- */
+.site-header{
+  background:linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 100%);
+  color:var(--paper); padding:34px 24px 26px;
+}
+.header-inner{max-width:1100px; margin:0 auto;}
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--brass); opacity:.9; margin:0 0 10px;
+}
+.site-header h1{
+  font-family:var(--serif); font-weight:700; font-size:clamp(1.6rem,4vw,2.5rem);
+  margin:0 0 10px; letter-spacing:-.01em;
+}
+.site-header p.tagline{
+  margin:0; color:rgba(246,241,231,.78); font-size:.98rem; max-width:680px; line-height:1.6;
+}
+.pulse-strip{
+  overflow:hidden; white-space:nowrap; background:rgba(0,0,0,.18);
+  height:26px; display:flex; align-items:center; margin-top:22px;
+  border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08);
+}
+.pulse-track{
+  display:flex; flex-shrink:0; animation:pulse-scroll 70s linear infinite;
+}
+.pulse-track span{
+  font-family:var(--mono); font-size:11px; letter-spacing:3px; color:var(--brass);
+  opacity:.55; white-space:nowrap; padding-right:0;
+}
+@keyframes pulse-scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+@media (prefers-reduced-motion:reduce){ .pulse-track{animation:none;} }
+
+/* ---------- Tabs ---------- */
+.tabs{
+  display:flex; max-width:1100px; margin:0 auto; padding:0 24px;
+  border-bottom:2px solid var(--line-dark); gap:4px; overflow-x:auto;
+}
+.tab-btn{
+  font-family:var(--serif); font-weight:600; font-size:1rem; padding:15px 20px 13px;
+  background:none; border:none; cursor:pointer; color:var(--ink-soft); position:relative;
+  white-space:nowrap;
+}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:var(--ink);}
+.tab-btn.active::after{
+  content:''; position:absolute; left:14px; right:14px; bottom:-2px; height:3px; background:var(--brass); border-radius:2px 2px 0 0;
+}
+
+/* ---------- Layout ---------- */
+main{max-width:1100px; margin:0 auto; padding:30px 24px 90px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.intro-note{
+  font-size:.94rem; color:var(--ink-soft); max-width:740px; margin:0 0 28px; line-height:1.65;
+}
+.hidden{display:none !important;}
+
+/* ---------- Notes tab ---------- */
+.notes-layout{display:grid; grid-template-columns:228px 1fr; gap:36px; align-items:start;}
+.toc{position:sticky; top:18px;}
+.toc-group{margin-bottom:22px;}
+.toc-parent{
+  font-family:var(--mono); font-size:.7rem; text-transform:uppercase; letter-spacing:1.5px;
+  color:var(--ink-soft); margin-bottom:8px; font-weight:600;
+}
+.toc-link{
+  display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:6px;
+  text-decoration:none; font-size:.86rem; color:var(--text); margin-bottom:2px;
+}
+.toc-link:hover{background:rgba(11,31,51,.05);}
+.toc-link .code{font-family:var(--mono); font-size:.68rem; color:var(--brass-dark); flex-shrink:0;}
+
+.parent-head{margin:6px 0 22px; padding-bottom:14px; border-bottom:2px solid var(--line-dark);}
+.parent-head:not(:first-child){margin-top:46px;}
+.parent-code{
+  font-family:var(--mono); font-size:.75rem; letter-spacing:2px; color:var(--brass-dark); font-weight:700;
+}
+.parent-head h2{font-family:var(--serif); font-size:1.7rem; margin:6px 0 8px; color:var(--ink);}
+.parent-desc{margin:0; color:var(--ink-soft); font-size:.92rem;}
+
+.note-card{
+  background:var(--paper-card); border:1px solid var(--line); border-radius:10px;
+  padding:26px 28px 24px; margin-bottom:24px; scroll-margin-top:18px;
+}
+.note-card .badge{
+  font-family:var(--mono); font-size:.7rem; color:var(--brass-dark); background:rgba(200,147,43,.12);
+  padding:3px 9px; border-radius:5px; letter-spacing:1px; display:inline-block;
+}
+.note-card h3{font-family:var(--serif); font-size:1.32rem; margin:.5em 0 .65em; color:var(--ink);}
+.note-card p{line-height:1.7; margin:0 0 1em; color:var(--text); font-size:.96rem;}
+.note-card code{background:rgba(11,31,51,.06); padding:1px 6px; border-radius:4px; font-size:.88em;}
+.gen-list{list-style:none; margin:1.1em 0; padding:0 0 0 18px; border-left:2px solid var(--line-dark);}
+.gen-list li{padding:7px 0 7px 16px; position:relative; font-size:.95rem; line-height:1.6;}
+.gen-list li::before{
+  content:''; position:absolute; left:-25px; top:15px; width:9px; height:9px; border-radius:50%;
+  background:var(--brass); border:2px solid var(--paper-card);
+}
+.key-facts{
+  border-left:3px solid var(--brass); background:rgba(200,147,43,.07);
+  padding:14px 18px 12px; border-radius:0 8px 8px 0; margin-top:1.3em;
+}
+.key-facts .kf-title{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--brass-dark); margin-bottom:9px; display:block; font-weight:600;
+}
+.key-facts ul{margin:0; padding:0; list-style:none;}
+.key-facts li{font-size:.88rem; line-height:1.55; margin-bottom:7px; padding-left:1.3em; position:relative; color:var(--text);}
+.key-facts li:last-child{margin-bottom:0;}
+.key-facts li::before{content:'\203A'; position:absolute; left:0; color:var(--brass-dark); font-family:var(--mono); font-weight:700;}
+.practice-link{
+  display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-family:var(--mono);
+  font-size:.78rem; color:var(--signal-dark); text-decoration:none; border:1px solid var(--signal);
+  padding:7px 14px; border-radius:20px; background:none; cursor:pointer; transition:.15s;
+}
+.practice-link:hover{background:var(--signal); color:#fff;}
+
+/* ---------- Exam setup ---------- */
+.exam-setup{
+  background:var(--paper-card); border:1px solid var(--line); border-radius:12px;
+  padding:30px; max-width:780px; margin:0 auto;
+}
+.setup-section-title{
+  font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:1.5px;
+  color:var(--ink-soft); margin:0 0 12px; font-weight:600;
+}
+.quick-select{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
+.quick-btn{
+  font-family:var(--mono); font-size:.78rem; padding:8px 15px; border-radius:20px;
+  border:1px solid var(--line-dark); background:var(--paper); cursor:pointer; color:var(--ink-soft);
+  transition:.15s;
+}
+.quick-btn:hover{border-color:var(--brass); color:var(--ink);}
+.topic-group{margin-bottom:6px;}
+.topic-group h4{
+  font-family:var(--serif); font-size:1.02rem; margin:18px 0 6px; color:var(--ink); font-weight:600;
+}
+.group-total{font-family:var(--mono); font-weight:400; font-size:.78rem; color:var(--ink-soft);}
+.check-row{
+  display:flex; align-items:center; justify-content:space-between; padding:8px 10px; border-radius:8px;
+}
+.check-row:hover{background:rgba(11,31,51,.035);}
+.check-row label{display:flex; align-items:center; gap:10px; font-size:.92rem; cursor:pointer; width:100%;}
+.check-row input[type=checkbox]{accent-color:var(--ink); width:16px; height:16px; flex-shrink:0;}
+.check-row .code{
+  font-family:var(--mono); font-size:.7rem; color:var(--brass-dark); background:rgba(200,147,43,.1);
+  padding:2px 6px; border-radius:4px; flex-shrink:0;
+}
+.check-row .count{font-family:var(--mono); font-size:.76rem; color:var(--ink-soft); flex-shrink:0;}
+
+.config-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:26px 0 8px;}
+.field label{
+  display:block; font-family:var(--mono); font-size:.7rem; text-transform:uppercase; letter-spacing:1px;
+  color:var(--ink-soft); margin-bottom:7px; font-weight:600;
+}
+.count-row{display:flex; align-items:center; gap:8px;}
+input[type=number]{
+  width:78px; padding:9px 10px; border:1.5px solid var(--line-dark); border-radius:6px;
+  font-family:var(--mono); font-size:.95rem; background:var(--paper); color:var(--text);
+}
+.count-btn{
+  font-family:var(--mono); font-size:.72rem; padding:7px 10px; border-radius:6px; border:1px solid var(--line-dark);
+  background:var(--paper); cursor:pointer; color:var(--ink-soft);
+}
+.count-btn:hover{border-color:var(--brass); color:var(--ink);}
+select{
+  padding:9px 10px; border:1.5px solid var(--line-dark); border-radius:6px; font-family:var(--sans);
+  font-size:.9rem; background:var(--paper); color:var(--text); width:100%;
+}
+.toggle-row{display:flex; align-items:center; gap:9px; margin-top:10px; font-size:.88rem; color:var(--text);}
+.toggle-row input[type=checkbox]{accent-color:var(--ink); width:15px; height:15px;}
+.available-note{
+  font-family:var(--mono); font-size:.8rem; color:var(--ink-soft); margin:18px 0 18px;
+  padding:10px 14px; background:rgba(11,31,51,.04); border-radius:8px;
+}
+.available-note strong{color:var(--ink);}
+.start-btn{
+  display:block; width:100%; padding:15px; background:var(--ink); color:var(--paper); border:none;
+  border-radius:8px; font-family:var(--serif); font-weight:600; font-size:1.06rem; cursor:pointer;
+  letter-spacing:.2px; transition:.15s;
+}
+.start-btn:hover{background:var(--ink-2);}
+.start-btn:disabled{opacity:.45; cursor:not-allowed;}
+
+/* ---------- Exam running ---------- */
+#examRunning{display:grid; grid-template-columns:1fr 224px; gap:26px; align-items:start;}
+.exam-topbar{
+  grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  background:var(--ink); color:var(--paper); padding:13px 18px; border-radius:10px;
+}
+.exam-progress{font-family:var(--mono); font-size:.84rem; opacity:.92;}
+.exam-mid{display:flex; align-items:center; gap:14px;}
+.exam-timer{
+  font-family:var(--mono); font-size:1.05rem; font-weight:700; padding:5px 12px; border-radius:6px;
+  background:rgba(255,255,255,.1);
+}
+.exam-timer.warn{color:#FFD3CB; background:rgba(193,67,47,.35);}
+.exam-actions{display:flex; gap:8px;}
+.icon-btn{
+  background:none; border:1px solid rgba(255,255,255,.35); color:var(--paper); padding:7px 13px;
+  border-radius:6px; font-family:var(--sans); font-size:.78rem; cursor:pointer; font-weight:500;
+}
+.icon-btn:hover{background:rgba(255,255,255,.1);}
+.icon-btn.flagged{background:var(--brass); border-color:var(--brass); color:var(--ink);}
+.submit-btn{
+  background:var(--signal); border:none; color:#fff; padding:7px 16px; border-radius:6px;
+  font-family:var(--sans); font-weight:600; font-size:.78rem; cursor:pointer;
+}
+.submit-btn:hover{background:var(--signal-dark);}
+
+.question-card{background:var(--paper-card); border:1px solid var(--line); border-radius:12px; padding:28px;}
+.q-badge{
+  font-family:var(--mono); font-size:.72rem; color:var(--brass-dark); background:rgba(200,147,43,.12);
+  padding:3px 9px; border-radius:5px;
+}
+.q-text{font-family:var(--serif); font-size:1.22rem; line-height:1.55; margin:16px 0 22px; color:var(--ink);}
+.options-list{display:flex; flex-direction:column; gap:10px;}
+.option-row{
+  display:flex; align-items:flex-start; gap:12px; padding:13px 16px; border:1.5px solid var(--line);
+  border-radius:8px; cursor:pointer; transition:border-color .15s, background .15s; font-size:.95rem;
+}
+.option-row:hover{border-color:var(--brass);}
+.option-row.selected{border-color:var(--ink); background:rgba(11,31,51,.045);}
+.option-letter{font-family:var(--mono); font-weight:700; color:var(--ink-soft); width:20px; flex-shrink:0;}
+.option-row.selected .option-letter{color:var(--ink);}
+.option-row input[type=radio]{accent-color:var(--ink); margin-top:3px; flex-shrink:0;}
+.nav-row{display:flex; justify-content:space-between; margin-top:24px; gap:12px;}
+.nav-btn{
+  font-family:var(--sans); font-weight:600; padding:11px 24px; border-radius:8px; border:1.5px solid var(--ink);
+  background:var(--paper); color:var(--ink); cursor:pointer; font-size:.92rem;
+}
+.nav-btn:hover{background:var(--ink); color:var(--paper);}
+.nav-btn:disabled{opacity:.35; cursor:not-allowed; background:var(--paper); color:var(--ink);}
+
+.palette-panel{
+  background:var(--paper-card); border:1px solid var(--line); border-radius:12px; padding:18px;
+  position:sticky; top:18px;
+}
+.palette-title{
+  font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:1px;
+  color:var(--ink-soft); margin-bottom:12px; font-weight:600;
+}
+.palette-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:7px;}
+.palette-cell{
+  aspect-ratio:1; border-radius:6px; border:1.5px solid var(--line-dark); background:var(--paper);
+  font-family:var(--mono); font-size:.74rem; color:var(--ink-soft); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.palette-cell.answered{background:var(--signal); border-color:var(--signal-dark); color:#fff;}
+.palette-cell.flagged{box-shadow:0 0 0 2px var(--brass) inset;}
+.palette-cell.current{border-color:var(--ink); box-shadow:0 0 0 2px var(--ink);}
+.palette-legend{margin-top:15px; font-size:.74rem; color:var(--ink-soft); display:flex; flex-direction:column; gap:7px;}
+.legend-dot{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:7px; vertical-align:middle; border:1.5px solid var(--line-dark);}
+.legend-dot.answered{background:var(--signal); border-color:var(--signal-dark);}
+.legend-dot.flagged{box-shadow:0 0 0 2px var(--brass) inset; background:var(--paper);}
+.legend-dot.current{border-color:var(--ink); box-shadow:0 0 0 2px var(--ink); background:var(--paper);}
+
+/* ---------- Results ---------- */
+.results-header{
+  display:flex; gap:34px; align-items:center; flex-wrap:wrap; background:var(--paper-card);
+  border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:28px;
+}
+.score-ring{
+  width:152px; height:152px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.score-ring-inner{
+  width:116px; height:116px; border-radius:50%; background:var(--paper-card); display:flex;
+  flex-direction:column; align-items:center; justify-content:center;
+}
+.score-pct{font-family:var(--serif); font-size:1.9rem; font-weight:700; color:var(--ink);}
+.score-label{font-family:var(--mono); font-size:.66rem; text-transform:uppercase; letter-spacing:1px; color:var(--ink-soft);}
+.results-stats{display:grid; grid-template-columns:repeat(2,minmax(110px,1fr)); gap:18px; flex:1; min-width:230px;}
+.stat-num{font-family:var(--serif); font-size:1.55rem; font-weight:700; color:var(--ink);}
+.stat-label{font-family:var(--mono); font-size:.68rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.5px;}
+
+.section-title{font-family:var(--serif); font-size:1.2rem; margin:0 0 16px; color:var(--ink);}
+.breakdown{
+  background:var(--paper-card); border:1px solid var(--line); border-radius:12px; padding:24px 26px; margin-bottom:28px;
+}
+.bar-row{display:flex; align-items:center; gap:12px; margin-bottom:11px;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-label{width:230px; font-family:var(--mono); font-size:.76rem; color:var(--ink-soft); flex-shrink:0;}
+.bar-track{flex:1; height:9px; background:var(--line); border-radius:6px; overflow:hidden;}
+.bar-fill{height:100%; border-radius:6px;}
+.bar-value{font-family:var(--mono); font-size:.76rem; color:var(--ink-soft); width:46px; text-align:right; flex-shrink:0;}
+
+.review-filters{display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;}
+.review-filter-btn{
+  font-family:var(--mono); font-size:.78rem; padding:8px 15px; border-radius:20px; border:1px solid var(--line-dark);
+  background:var(--paper); cursor:pointer; color:var(--ink-soft);
+}
+.review-filter-btn.active{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+.review-card{
+  background:var(--paper-card); border:1px solid var(--line); border-left:5px solid var(--line-dark);
+  border-radius:8px; padding:20px 22px; margin-bottom:14px;
+}
+.review-card.correct{border-left-color:var(--signal);}
+.review-card.incorrect{border-left-color:var(--alert);}
+.review-q-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+.review-q-text{font-family:var(--serif); font-size:1.04rem; margin:6px 0 14px; color:var(--ink); line-height:1.5;}
+.review-opt{padding:9px 13px; border-radius:6px; margin-bottom:6px; font-size:.9rem; border:1px solid transparent; color:var(--text);}
+.review-opt.correct-answer{background:rgba(47,158,104,.12); border-color:rgba(47,158,104,.3); color:var(--signal-dark); font-weight:600;}
+.review-opt.wrong-selected{background:rgba(193,67,47,.12); border-color:rgba(193,67,47,.3); color:var(--alert); font-weight:600;}
+.review-exp{font-size:.86rem; color:var(--ink-soft); margin-top:10px; padding-top:10px; border-top:1px dashed var(--line-dark); line-height:1.55;}
+.flag-pill{background:rgba(200,147,43,.18); color:var(--brass-dark); font-family:var(--mono); font-size:.68rem; padding:3px 9px; border-radius:5px;}
+
+.retake-btn{
+  display:block; width:100%; padding:14px; background:var(--paper-card); color:var(--ink); border:1.5px solid var(--ink);
+  border-radius:8px; font-family:var(--serif); font-weight:600; font-size:1rem; cursor:pointer; margin-top:8px;
+}
+.retake-btn:hover{background:var(--ink); color:var(--paper);}
+
+footer{
+  text-align:center; padding:26px 24px 40px; font-family:var(--mono); font-size:.75rem; color:var(--ink-soft);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:780px){
+  .notes-layout{grid-template-columns:1fr;}
+  .toc{position:static; display:flex; gap:18px; overflow-x:auto; padding-bottom:10px; margin-bottom:6px; border-bottom:1px solid var(--line-dark);}
+  .toc-group{margin-bottom:0; flex-shrink:0;}
+  .toc-link{padding:4px 0;}
+  #examRunning{grid-template-columns:1fr;}
+  .palette-panel{position:static;}
+  .palette-grid{grid-template-columns:repeat(8,1fr);}
+  .results-header{flex-direction:column; text-align:center;}
+  .results-stats{grid-template-columns:repeat(2,1fr);}
+  .config-grid{grid-template-columns:1fr;}
+  .bar-label{width:160px; font-size:.68rem;}
+}
+
+/* ---------- Print ---------- */
+@media print{
+  .site-header .pulse-strip, .tabs, .exam-setup, #examRunning, .practice-link, .toc, footer{display:none !important;}
+  #examTab{display:none !important;}
+  body{background:#fff;}
+  .note-card{break-inside:avoid; border:1px solid #ccc; box-shadow:none;}
+  .notes-layout{display:block;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <p class="eyebrow">ICT Olympiad &amp; University Entrance Preparation &middot; Bangladesh</p>
+    <h1>Basic ICT Concepts &amp; Computer Hardware/Software</h1>
+    <p class="tagline">Chapters 6.1&ndash;6.2 &middot; Study notes with history and formation, plus a 100-question
+    timed practice exam with instant scoring and explanations &mdash; built for Computer Science / ICT olympiad
+    and university-standard preparation.</p>
+  </div>
+  <div class="pulse-strip" aria-hidden="true">
+    <div class="pulse-track"><span>01000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 0010000001000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 0010000001000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 00100000</span><span>01000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 0010000001000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 0010000001000101 01010110 01001111 01001100 01010101 01010100 01001001 01001111 01001110 00100000 01001111 01000110 00100000 01001001 01000011 01010100 00100000 00100000 00110001 00111000 00110011 00110111 00100000 00100000 00110001 00111001 00110100 00110110 00100000 00100000 00110001 00111001 00110111 00110001 00100000 00100000 00110001 00111001 00111000 00111001 00100000 00100000</span></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="notesTab">Study Notes</button>
+  <button class="tab-btn" data-tab="examTab">Practice Exam</button>
+</nav>
+
+<main>
+
+  <!-- ============ NOTES TAB ============ -->
+  <section id="notesTab" class="tab-panel active">
+    <p class="intro-note">Read through each topic below for concise explanations and the historical milestones
+    examiners often test &mdash; inventors, dates, and the formation of key technologies. Every section links
+    straight into a focused practice quiz.</p>
+    <div class="notes-layout">
+      <aside class="toc">
+        <div class="toc-group">
+<div class="toc-parent">6.1 Basic ICT Concepts</div>
+<a href="#data_info" class="toc-link"><span class="code">6.1.1</span>Data & Information</a>
+<a href="#evolution" class="toc-link"><span class="code">6.1.2</span>Evolution of ICT</a>
+<a href="#digital_devices" class="toc-link"><span class="code">6.1.3</span>Digital Devices</a>
+<a href="#comm_systems" class="toc-link"><span class="code">6.1.4</span>Communication Systems</a>
+</div>
+<div class="toc-group">
+<div class="toc-parent">6.2 Computer Hardware & Software</div>
+<a href="#cpu" class="toc-link"><span class="code">6.2.1</span>CPU</a>
+<a href="#ram_rom" class="toc-link"><span class="code">6.2.2</span>RAM & ROM</a>
+<a href="#storage" class="toc-link"><span class="code">6.2.3</span>Storage Devices</a>
+<a href="#io_devices" class="toc-link"><span class="code">6.2.4</span>Input / Output Devices</a>
+<a href="#sys_app_sw" class="toc-link"><span class="code">6.2.5</span>System & Application Software</a>
+</div>
+      </aside>
+      <div class="notes-content">
+        <div class="parent-head" id="parent-6.1">
+<span class="parent-code">6.1</span>
+<h2>Basic ICT Concepts</h2>
+<p class="parent-desc">Data and information, evolution of ICT, digital devices, communication systems</p>
+</div>
+<article id="data_info" class="note-card">
+<span class="badge">6.1.1</span>
+<h3>Data &amp; Information</h3>
+
+<p><strong>Data</strong> refers to raw, unorganised facts and figures &mdash; numbers, words, symbols, or signals &mdash;
+that carry no meaning by themselves until they are processed. For example, the numbers
+<code>78, 85, 92, 67</code> are simply data.</p>
+<p><strong>Information</strong> is data that has been processed, organised, structured, or placed in a context
+that makes it meaningful and useful to the person receiving it. &ldquo;The class average mark is 80.5&rdquo;
+is information derived from the raw data above.</p>
+<p>The transformation of data into information is called <strong>data processing</strong>, and it typically
+follows an <strong>Input &rarr; Process &rarr; Output</strong> cycle. Good information should be
+<strong>accurate, timely, relevant, and complete</strong>.</p>
+<p>ICT theory often extends this idea into the <strong>DIKW hierarchy</strong>: Data &rarr; Information &rarr;
+Knowledge &rarr; Wisdom &mdash; where Knowledge is information combined with experience and context, and
+Wisdom is the applied judgement to use that knowledge well.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Data = raw facts; Information = processed, meaningful data</li>
+<li>Data processing cycle: Input &rarr; Process &rarr; Output</li>
+<li>DIKW hierarchy: Data, Information, Knowledge, Wisdom</li>
+<li>Qualities of good information: accurate, timely, relevant, complete</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('data_info')">Practice this topic (8 Qs) &rarr;</button>
+</article>
+<article id="evolution" class="note-card">
+<span class="badge">6.1.2</span>
+<h3>Evolution of ICT</h3>
+
+<p>Long before electronics, humans used mechanical aids to calculate. The <strong>Abacus</strong>
+(used from roughly 2700&ndash;2300 BCE in Mesopotamia) is considered the earliest calculating tool.
+Centuries later, in 1642, Blaise Pascal built the <strong>Pascaline</strong>, a mechanical adding machine.</p>
+<p>The conceptual leap toward the modern computer came from <strong>Charles Babbage</strong>, an English
+mathematician who designed the Difference Engine (1822) and, more importantly, the
+<strong>Analytical Engine</strong> (1837) &mdash; a mechanical, general-purpose, programmable computer design,
+earning him the title &ldquo;Father of the Computer.&rdquo; <strong>Ada Lovelace</strong>, who wrote an
+algorithm for the Analytical Engine to compute Bernoulli numbers, is regarded as the
+<strong>world&rsquo;s first computer programmer</strong>.</p>
+<p>The electronic era began in the 1940s. <strong>ENIAC</strong> (Electronic Numerical Integrator and
+Computer), completed in 1945 and operational in 1946, is widely cited as the first general-purpose
+electronic digital computer. This kicked off the five generally recognised generations of computers:</p>
+<ul class="gen-list">
+<li><strong>1st Generation (1940s&ndash;50s):</strong> Vacuum tubes &mdash; bulky, hot, power-hungry (e.g., ENIAC, UNIVAC I).</li>
+<li><strong>2nd Generation (late 1950s&ndash;60s):</strong> Transistors, invented in 1947 at Bell Labs by Bardeen, Brattain and Shockley &mdash; smaller, faster, more reliable.</li>
+<li><strong>3rd Generation (1960s&ndash;70s):</strong> Integrated Circuits (ICs), pioneered by Jack Kilby (1958) and Robert Noyce (1959) &mdash; many transistors on one chip.</li>
+<li><strong>4th Generation (1971&ndash;present):</strong> The Microprocessor &mdash; beginning with Intel&rsquo;s 4004 in 1971 &mdash; put an entire CPU on a single chip.</li>
+<li><strong>5th Generation (emerging):</strong> Artificial Intelligence, parallel processing, and natural-language systems.</li>
+</ul>
+<p>Underlying this rapid miniaturisation is <strong>Moore&rsquo;s Law</strong> &mdash; Gordon Moore&rsquo;s 1965
+observation that the number of transistors on a chip roughly doubles every two years. Alongside computing
+hardware, the <strong>convergence</strong> of computing, telecommunications, and broadcasting into a single
+digital ecosystem is what gave rise to the modern term &ldquo;ICT.&rdquo;</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Abacus (~2700 BCE) &rarr; Pascaline (1642) &rarr; Babbage&rsquo;s Analytical Engine (1837)</li>
+<li>Ada Lovelace: regarded as the first computer programmer</li>
+<li>ENIAC (1945/46): first general-purpose electronic computer</li>
+<li>5 generations: Vacuum Tube &rarr; Transistor (1947) &rarr; IC (1958/59) &rarr; Microprocessor (1971) &rarr; AI</li>
+<li>Moore&rsquo;s Law (1965): transistor count doubles roughly every 2 years</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('evolution')">Practice this topic (15 Qs) &rarr;</button>
+</article>
+<article id="digital_devices" class="note-card">
+<span class="badge">6.1.3</span>
+<h3>Digital Devices</h3>
+
+<p>A <strong>digital device</strong> processes and stores data as discrete binary values (0s and 1s) rather
+than continuously varying signals &mdash; which is what distinguishes it from an <strong>analog device</strong>
+(like a mercury thermometer or a vinyl record player). This binary representation makes digital signals more
+resistant to noise and easier to copy, compress, and transmit without loss of quality.</p>
+<p>Early &ldquo;digital devices&rdquo; in the consumer sense emerged slowly. IBM&rsquo;s
+<strong>Simon Personal Communicator</strong> (1994) is often credited as the first true smartphone, combining
+a phone with a calendar, notepad, and touchscreen. It was <strong>Apple&rsquo;s iPhone (2007)</strong>,
+however, that popularised the modern smartphone era with its multi-touch interface and app ecosystem.</p>
+<p>Today&rsquo;s digital device landscape spans smartphones, tablets, smart TVs, e-readers, and an expanding
+category of <strong>wearables</strong> (smartwatches, fitness bands) and <strong>IoT (Internet of Things)</strong>
+devices &mdash; everyday objects (thermostats, doorbells, sensors) embedded with connectivity so they can
+collect and exchange data automatically. The process of converting an analog input (like a voice) into
+digital form is called <strong>Analog-to-Digital Conversion (ADC)</strong>.</p>
+<p>This explosion of digital devices has been made possible by decades of progress in semiconductor and
+microprocessor technology, allowing devices to shrink dramatically in size and cost while increasing in
+power &mdash; a direct continuation of the trend described by Moore&rsquo;s Law.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Digital = discrete binary data; Analog = continuous signals</li>
+<li>IBM Simon (1994): first true smartphone</li>
+<li>Apple iPhone (2007): modern smartphone era begins</li>
+<li>IoT = everyday objects with embedded connectivity</li>
+<li>ADC = Analog-to-Digital Conversion</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('digital_devices')">Practice this topic (10 Qs) &rarr;</button>
+</article>
+<article id="comm_systems" class="note-card">
+<span class="badge">6.1.4</span>
+<h3>Communication Systems</h3>
+
+<p>Modern telecommunication has roots in the 19th century. <strong>Samuel Morse</strong> developed the
+electric telegraph and Morse code, demonstrated in 1844, allowing the first practical long-distance
+electrical messaging. In <strong>1876</strong>, <strong>Alexander Graham Bell</strong> patented the
+telephone, enabling real-time voice communication over wires. <strong>Guglielmo Marconi</strong> later
+pioneered wireless radio communication in the 1890s&ndash;1900s, removing the need for physical cables altogether.</p>
+<p>The space age extended communication beyond Earth&rsquo;s surface: <strong>Telstar 1</strong> (1962), the
+first active communications satellite, enabled live transatlantic television and telephone signals.
+Meanwhile, mobile telephony advanced through distinct generations &mdash; <strong>1G</strong> (early 1980s,
+analog voice only), <strong>2G</strong> (digital voice and basic data), <strong>3G</strong> (mobile broadband
+internet), <strong>4G</strong> (high-speed LTE data), and <strong>5G</strong> (commercially launched from
+2019, offering very high speed, low latency, and massive device connectivity). The first handheld mobile
+call was made by <strong>Martin Cooper</strong> of Motorola in <strong>1973</strong>.</p>
+<p>Computer networking has its own parallel history. <strong>ARPANET</strong>, developed by the U.S.
+Department of Defense, went live in <strong>1969</strong> as the direct ancestor of the internet.
+<strong>Ray Tomlinson</strong> sent the first network email in <strong>1971</strong>, choosing the
+&ldquo;@&rdquo; symbol to separate the username from the host computer&rsquo;s name. The internet&rsquo;s
+common language, <strong>TCP/IP</strong>, became the official standard in <strong>1983</strong>. Finally,
+<strong>Tim Berners-Lee</strong> invented the <strong>World Wide Web</strong> in <strong>1989</strong> at
+CERN, giving the internet the hyperlinked, browsable interface used today.</p>
+<p>Communication systems are described using terms like <strong>bandwidth</strong> (the data capacity of a
+channel over time) and switching method &mdash; <strong>circuit switching</strong> (a dedicated path for the
+whole call, as in traditional telephony) versus <strong>packet switching</strong> (data broken into packets
+routed independently, as on the internet).</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Telegraph (Morse, 1844) &rarr; Telephone (Bell, 1876) &rarr; Radio (Marconi, ~1890s&ndash;1900s)</li>
+<li>Telstar 1 (1962): first active communications satellite</li>
+<li>First handheld mobile call: Martin Cooper, Motorola, 1973</li>
+<li>ARPANET (1969) &rarr; Email (Tomlinson, 1971) &rarr; TCP/IP standard (1983) &rarr; WWW (Berners-Lee, 1989)</li>
+<li>Mobile generations: 1G (analog) &rarr; 2G &rarr; 3G (mobile internet) &rarr; 4G (LTE) &rarr; 5G (2019&ndash;)</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('comm_systems')">Practice this topic (17 Qs) &rarr;</button>
+</article>
+<div class="parent-head" id="parent-6.2">
+<span class="parent-code">6.2</span>
+<h2>Computer Hardware & Software</h2>
+<p class="parent-desc">CPU, RAM, ROM, storage devices, input/output devices, system software, application software</p>
+</div>
+<article id="cpu" class="note-card">
+<span class="badge">6.2.1</span>
+<h3>Central Processing Unit (CPU)</h3>
+
+<p>The CPU is the &ldquo;brain&rdquo; of the computer, responsible for fetching, decoding, and executing
+instructions. It has two principal components: the <strong>Control Unit (CU)</strong>, which directs the
+operation of the processor by interpreting instructions, and the <strong>Arithmetic Logic Unit (ALU)</strong>,
+which performs all mathematical calculations and logical comparisons. The CPU also contains a small set of
+extremely fast storage locations called <strong>registers</strong>, used to hold data and instructions
+currently being processed.</p>
+<p>The architectural blueprint behind most modern CPUs comes from mathematician
+<strong>John von Neumann</strong>, whose 1945 &ldquo;First Draft of a Report on the EDVAC&rdquo; described a
+design where both program instructions and data share the same memory and bus &mdash; now known as the
+<strong>von Neumann architecture</strong>. (The competing <strong>Harvard architecture</strong> uses separate
+memory for instructions and data.)</p>
+<p>The physical CPU has shrunk dramatically over time. The first commercial microprocessor, Intel&rsquo;s
+<strong>4004</strong>, launched in <strong>1971</strong>, packed an entire CPU onto a single chip for the
+first time. This single-chip approach defines the fourth generation of computers and underlies every modern
+processor, including <strong>RISC (Reduced Instruction Set Computer)</strong> designs like the ARM chips used
+in most smartphones.</p>
+<p>Three terms describe CPU performance: <strong>clock speed</strong> (measured in GHz, the number of
+instruction cycles per second), <strong>cores</strong> (independent processing units on one chip &mdash; a
+multi-core CPU can execute multiple instruction streams simultaneously), and <strong>cache memory</strong>
+(very fast memory near the CPU that stores frequently used data to reduce delays). Every instruction a CPU
+runs follows the basic <strong>Fetch &rarr; Decode &rarr; Execute</strong> cycle.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>CU (control) + ALU (arithmetic/logic) = the two main CPU components</li>
+<li>Von Neumann architecture (1945): shared memory for instructions &amp; data</li>
+<li>Intel 4004 (1971): first commercial single-chip microprocessor</li>
+<li>Instruction cycle: Fetch &rarr; Decode &rarr; Execute</li>
+<li>RISC (e.g., ARM) vs CISC: competing CPU design philosophies</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('cpu')">Practice this topic (12 Qs) &rarr;</button>
+</article>
+<article id="ram_rom" class="note-card">
+<span class="badge">6.2.2</span>
+<h3>RAM &amp; ROM</h3>
+
+<p><strong>RAM (Random Access Memory)</strong> is the computer&rsquo;s primary working memory &mdash; it
+temporarily holds the programs and data the CPU is actively using. RAM is <strong>volatile</strong>, meaning
+all its contents are lost when the power is switched off. There are two main types:
+<strong>DRAM (Dynamic RAM)</strong>, which is cheaper and denser but must be electrically
+<strong>refreshed</strong> thousands of times per second to retain data, and <strong>SRAM (Static RAM)</strong>,
+which is faster and doesn&rsquo;t need refreshing but is more expensive &mdash; making it ideal for CPU cache
+memory. The semiconductor DRAM cell that underlies modern RAM was patented by <strong>Robert Dennard</strong>
+at IBM in <strong>1968</strong>.</p>
+<p><strong>ROM (Read Only Memory)</strong>, by contrast, is <strong>non-volatile</strong> &mdash; it retains
+data even without power &mdash; and is used to store firmware such as the BIOS, the low-level startup
+instructions a computer needs every time it boots. ROM has evolved through several variants:
+<strong>PROM</strong> (Programmable ROM, written once), <strong>EPROM</strong> (Erasable PROM, erased using
+ultraviolet light and reprogrammed), <strong>EEPROM</strong> (Electrically Erasable PROM, erased
+electrically), and modern <strong>Flash memory</strong>, an evolved form of EEPROM used in USB drives and SSDs.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>RAM = volatile working memory; ROM = non-volatile firmware storage</li>
+<li>DRAM (needs refreshing, cheaper) vs SRAM (faster, used for cache)</li>
+<li>DRAM cell patented by Robert Dennard, IBM, 1968</li>
+<li>ROM evolution: PROM &rarr; EPROM (UV-erasable) &rarr; EEPROM &rarr; Flash</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('ram_rom')">Practice this topic (8 Qs) &rarr;</button>
+</article>
+<article id="storage" class="note-card">
+<span class="badge">6.2.3</span>
+<h3>Storage Devices</h3>
+
+<p>Secondary storage provides <strong>non-volatile</strong>, long-term data storage, unlike the CPU&rsquo;s
+registers or RAM. Its history traces back to <strong>Herman Hollerith&rsquo;s punched cards</strong>, used to
+tabulate the 1890 U.S. Census &mdash; an early form of mechanical data storage. Hollerith&rsquo;s tabulating
+company eventually merged into what became <strong>IBM</strong> in 1924.</p>
+<p>Magnetic storage dominated computing for decades. <strong>Magnetic tape</strong> was first used
+commercially with UNIVAC in the early 1950s and is still used today for archival backups. IBM introduced the
+first commercial <strong>hard disk drive</strong>, the <strong>RAMAC 305</strong>, in <strong>1956</strong>.
+Portable magnetic storage followed with IBM&rsquo;s <strong>8-inch floppy disk</strong> in
+<strong>1971</strong>, later shrinking to the familiar 5.25-inch and 3.5-inch formats.</p>
+<p>Optical storage arrived with the <strong>Compact Disc (CD)</strong>, commercially launched in
+<strong>1982</strong>, followed by the DVD and Blu-ray, which used laser light rather than magnetism to read
+and write data. The most significant recent shift is the rise of <strong>Solid State Drives (SSDs)</strong>,
+which store data in flash memory chips with <strong>no moving parts</strong> &mdash; making them faster and
+more durable than traditional HDDs, though historically more expensive per gigabyte.</p>
+<p>Today, much storage has also moved off physical devices entirely into <strong>cloud storage</strong> &mdash;
+data kept on remote servers and accessed over the internet. Storage capacity itself is measured in a unit
+hierarchy: <strong>Bit &rarr; Byte &rarr; Kilobyte &rarr; Megabyte &rarr; Gigabyte &rarr; Terabyte</strong>,
+each roughly 1,000&times; (or 1,024&times;) the size of the one before.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Hollerith punched cards (1890 Census) &rarr; led to founding of IBM (1924)</li>
+<li>Magnetic tape (UNIVAC, early 1950s); IBM RAMAC HDD (1956); 8-inch floppy disk (1971)</li>
+<li>CD (1982): first major optical storage format</li>
+<li>SSD: flash memory, no moving parts, faster &amp; more durable than HDD</li>
+<li>Capacity units: Bit &lt; Byte &lt; KB &lt; MB &lt; GB &lt; TB</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('storage')">Practice this topic (10 Qs) &rarr;</button>
+</article>
+<article id="io_devices" class="note-card">
+<span class="badge">6.2.4</span>
+<h3>Input &amp; Output Devices</h3>
+
+<p><strong>Input devices</strong> let users enter data and commands into a computer, while
+<strong>output devices</strong> present processed results back to the user. The standard computer
+<strong>keyboard layout, QWERTY</strong>, was designed in the 1870s by
+<strong>Christopher Latham Sholes</strong> for early typewriters and has persisted into the digital age
+largely due to its entrenched familiarity.</p>
+<p>The <strong>computer mouse</strong> was invented by <strong>Douglas Engelbart</strong> in 1964 and famously
+demonstrated to the public during &ldquo;The Mother of All Demos&rdquo; in <strong>1968</strong>, alongside
+early concepts of hypertext and video conferencing that were decades ahead of their time.</p>
+<p>Common input devices include the keyboard, mouse, <strong>scanner</strong> (converts printed/handwritten
+documents into digital images), and <strong>microphone</strong> (converts sound into digital signals).
+Common output devices include the <strong>monitor</strong> (visual display) and <strong>printer</strong>
+(produces hard-copy paper output). Some devices, like <strong>touchscreens</strong>, function as both input
+and output simultaneously &mdash; accepting touch input while displaying visual output.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>Input devices: keyboard, mouse, scanner, microphone</li>
+<li>Output devices: monitor, printer, speaker</li>
+<li>QWERTY layout: Christopher Latham Sholes, 1870s</li>
+<li>Computer mouse: Douglas Engelbart, 1964 (publicly demoed 1968)</li>
+<li>Touchscreens: combined input + output device</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('io_devices')">Practice this topic (8 Qs) &rarr;</button>
+</article>
+<article id="sys_app_sw" class="note-card">
+<span class="badge">6.2.5</span>
+<h3>System &amp; Application Software</h3>
+
+<p>Computer software falls into two broad categories. <strong>System software</strong> manages the
+computer&rsquo;s hardware and provides the platform on which everything else runs &mdash; its most essential
+example is the <strong>Operating System (OS)</strong>. <strong>Application software</strong>, by contrast,
+is designed to help users perform specific tasks, such as word processors, spreadsheets, web browsers, and games.</p>
+<p>One of the earliest operating systems, <strong>GM-NAA I/O</strong>, was developed for the IBM 704 in
+<strong>1956</strong>. A major turning point came with <strong>UNIX</strong>, developed at
+<strong>Bell Labs starting in 1969</strong>, whose design principles still influence modern operating systems
+today, including <strong>Linux</strong> (created by <strong>Linus Torvalds in 1991</strong>) and Apple&rsquo;s
+<strong>macOS</strong>. On the personal computer side, Microsoft released <strong>MS-DOS</strong> in
+<strong>1981</strong> for IBM-compatible PCs, followed by the graphical
+<strong>Microsoft Windows</strong> in <strong>1985</strong>.</p>
+<p>System software includes several specialised categories: <strong>utility software</strong> (performs
+maintenance like disk cleanup, antivirus scanning, and file compression), and <strong>device drivers</strong>
+(small programs that let the OS communicate with specific hardware, such as a printer or graphics card).
+Programming language translators are also system software: a <strong>compiler</strong> translates an entire
+high-level program into machine code before it runs, while an <strong>interpreter</strong> translates and
+executes code line-by-line.</p>
+
+<div class="key-facts">
+<span class="kf-title">Key facts &amp; history</span>
+<ul><li>System software (manages hardware, e.g. OS) vs Application software (user tasks, e.g. Word)</li>
+<li>GM-NAA I/O (1956): one of the first operating systems</li>
+<li>UNIX (Bell Labs, 1969) &rarr; influenced Linux (Torvalds, 1991) and macOS</li>
+<li>MS-DOS (1981) &rarr; Microsoft Windows (1985)</li>
+<li>Compiler (translates all at once) vs Interpreter (line-by-line)</li></ul>
+</div>
+<button type="button" class="practice-link" onclick="takeQuizFor('sys_app_sw')">Practice this topic (12 Qs) &rarr;</button>
+</article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXAM TAB ============ -->
+  <section id="examTab" class="tab-panel">
+
+    <div id="examSetup">
+      <p class="intro-note">Build a custom practice exam from the full 100-question bank. Pick topics, set
+      a question count and pace, then sit it like a real paper &mdash; with a question palette, flags, a timer,
+      and a full scored review at the end.</p>
+      <div class="exam-setup">
+        <p class="setup-section-title">Quick select</p>
+        <div class="quick-select">
+          <button type="button" class="quick-btn" data-mode="all">All 100</button>
+          <button type="button" class="quick-btn" data-mode="61">6.1 only (50)</button>
+          <button type="button" class="quick-btn" data-mode="62">6.2 only (50)</button>
+          <button type="button" class="quick-btn" data-mode="clear">Clear all</button>
+        </div>
+
+        <p class="setup-section-title">Topics</p>
+        <div class="topic-group" data-parent="6.1">
+<h4>6.1 Basic ICT Concepts <span class="group-total">(50 Qs)</span></h4>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="data_info" checked><span class="code">6.1.1</span>Data & Information</label><span class="count">8 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="evolution" checked><span class="code">6.1.2</span>Evolution of ICT</label><span class="count">15 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="digital_devices" checked><span class="code">6.1.3</span>Digital Devices</label><span class="count">10 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="comm_systems" checked><span class="code">6.1.4</span>Communication Systems</label><span class="count">17 Qs</span></div>
+</div>
+<div class="topic-group" data-parent="6.2">
+<h4>6.2 Computer Hardware & Software <span class="group-total">(50 Qs)</span></h4>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="cpu" checked><span class="code">6.2.1</span>CPU</label><span class="count">12 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="ram_rom" checked><span class="code">6.2.2</span>RAM & ROM</label><span class="count">8 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="storage" checked><span class="code">6.2.3</span>Storage Devices</label><span class="count">10 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="io_devices" checked><span class="code">6.2.4</span>Input / Output Devices</label><span class="count">8 Qs</span></div>
+<div class="check-row"><label><input type="checkbox" class="sub-check" value="sys_app_sw" checked><span class="code">6.2.5</span>System & Application Software</label><span class="count">12 Qs</span></div>
+</div>
+
+        <div class="available-note"><strong id="availableCount">100</strong> questions available with the current selection.</div>
+
+        <div class="config-grid">
+          <div class="field">
+            <label for="qCount">Number of questions</label>
+            <div class="count-row">
+              <input type="number" id="qCount" min="1" max="100" value="25">
+              <button type="button" class="count-btn" data-count="10">10</button>
+              <button type="button" class="count-btn" data-count="25">25</button>
+              <button type="button" class="count-btn" data-count="50">50</button>
+              <button type="button" class="count-btn" data-count="max">Max</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="paceSelect">Timer</label>
+            <select id="paceSelect">
+              <option value="0">No timer</option>
+              <option value="90">Relaxed &mdash; 90s / question</option>
+              <option value="60" selected>Standard &mdash; 60s / question</option>
+              <option value="40">Strict &mdash; 40s / question</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="toggle-row"><input type="checkbox" id="shuffleQ" checked> Shuffle question order</label>
+        <label class="toggle-row"><input type="checkbox" id="shuffleOpt" checked> Shuffle answer options</label>
+
+        <button type="button" id="startBtn" class="start-btn" style="margin-top:24px;">Start Exam</button>
+      </div>
+    </div>
+
+    <div id="examRunning" class="hidden">
+      <div class="exam-topbar">
+        <span class="exam-progress" id="qProgress">Question 1 of 25</span>
+        <div class="exam-mid">
+          <span class="exam-timer hidden" id="examTimerDisplay">60:00</span>
+          <div class="exam-actions">
+            <button type="button" class="icon-btn" id="flagBtn">&#9873; Flag</button>
+            <button type="button" class="submit-btn" id="submitBtn">Submit Exam</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="question-card">
+          <span class="q-badge" id="qBadge">6.1.1 &middot; Data &amp; Information</span>
+          <div class="q-text" id="qText">Question text goes here.</div>
+          <div class="options-list" id="optionsList"></div>
+          <div class="nav-row">
+            <button type="button" class="nav-btn" id="prevBtn">&larr; Previous</button>
+            <button type="button" class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="palette-panel">
+        <p class="palette-title">Question Map</p>
+        <div class="palette-grid" id="paletteGrid"></div>
+        <div class="palette-legend">
+          <div><span class="legend-dot answered"></span>Answered</div>
+          <div><span class="legend-dot flagged"></span>Flagged</div>
+          <div><span class="legend-dot current"></span>Current</div>
+        </div>
+      </aside>
+    </div>
+
+    <div id="examResults" class="hidden">
+      <div class="results-header">
+        <div class="score-ring" id="scoreRing">
+          <div class="score-ring-inner">
+            <span class="score-pct" id="scorePct">0%</span>
+            <span class="score-label">Score</span>
+          </div>
+        </div>
+        <div class="results-stats">
+          <div><div class="stat-num"><span id="statCorrect">0</span>/<span id="statTotal">0</span></div><div class="stat-label">Correct</div></div>
+          <div><div class="stat-num" id="statTime">0m 0s</div><div class="stat-label">Time taken</div></div>
+          <div><div class="stat-num" id="statFlagged">0</div><div class="stat-label">Flagged</div></div>
+          <div><div class="stat-num" id="statAccuracy">0%</div><div class="stat-label">Accuracy</div></div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Breakdown by subtopic</h3>
+      <div class="breakdown" id="breakdownBars"></div>
+
+      <h3 class="section-title">Review answers</h3>
+      <div class="review-filters">
+        <button type="button" class="review-filter-btn active" data-filter="all">All</button>
+        <button type="button" class="review-filter-btn" data-filter="incorrect">Incorrect</button>
+        <button type="button" class="review-filter-btn" data-filter="correct">Correct</button>
+        <button type="button" class="review-filter-btn" data-filter="flagged">Flagged</button>
+      </div>
+      <div id="reviewList"></div>
+
+      <button type="button" class="retake-btn" id="retakeBtn">Build a New Exam</button>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>ICT Olympiad Prep &middot; 6.1 Basic ICT Concepts &amp; 6.2 Computer Hardware/Software &middot; 100 practice questions</footer>
+
+<script>
+const QUESTIONS = [{"topic": "6.1", "sub": "data_info", "q": "Which option best defines “data” in ICT?", "options": ["Raw, unprocessed facts and figures", "Processed facts presented in a meaningful context", "A conclusion drawn from analysis", "Knowledge gained through experience"], "answer": 0, "exp": "Data is raw, unorganised facts and figures that carry no meaning on their own until processed.", "id": 1}, {"topic": "6.1", "sub": "data_info", "q": "Which option best defines “information”?", "options": ["Raw collected facts", "Processed data that is meaningful and useful to the recipient", "Any electronic signal", "Stored data in a database"], "answer": 1, "exp": "Information is data that has been processed and organised so that it becomes meaningful.", "id": 2}, {"topic": "6.1", "sub": "data_info", "q": "The process of converting data into information is called:", "options": ["Data processing", "Data mining", "Data encryption", "Data compression"], "answer": 0, "exp": "Data processing follows an Input → Process → Output cycle to turn raw data into information.", "id": 3}, {"topic": "6.1", "sub": "data_info", "q": "Which of the following is an example of data rather than information?", "options": ["“Average rainfall in Sylhet was 3200 mm in 2023”", "A raw list of marks: 85, 90, 78, 92", "“Karim scored the highest mark in class”", "“Sales increased by 12% this quarter”"], "answer": 1, "exp": "An unorganised list of numbers is raw data; the other options are processed, meaningful statements.", "id": 4}, {"topic": "6.1", "sub": "data_info", "q": "Good information is generally expected to be accurate, timely, relevant and:", "options": ["Complete", "Redundant", "Ambiguous", "Overly complex"], "answer": 0, "exp": "The classic qualities of good information are accuracy, timeliness, relevance and completeness.", "id": 5}, {"topic": "6.1", "sub": "data_info", "q": "In the DIKW hierarchy used in ICT, “knowledge” is best described as:", "options": ["Unorganised raw facts", "Information combined with experience, context and understanding", "A synonym for data", "A type of digital device"], "answer": 1, "exp": "Knowledge sits above information in the DIKW hierarchy — it is information interpreted through experience and context.", "id": 6}, {"topic": "6.1", "sub": "data_info", "q": "Which sequence correctly represents the DIKW hierarchy from the rawest to the most refined level?", "options": ["Wisdom → Knowledge → Information → Data", "Data → Information → Knowledge → Wisdom", "Information → Data → Wisdom → Knowledge", "Knowledge → Data → Wisdom → Information"], "answer": 1, "exp": "DIKW moves from raw Data, to organised Information, to contextual Knowledge, to applied Wisdom.", "id": 7}, {"topic": "6.1", "sub": "data_info", "q": "A bank statement that shows your processed transaction history with a running balance is an example of:", "options": ["Data", "Information", "Noise", "A digital device"], "answer": 1, "exp": "The statement organises raw transactions into a meaningful, useful summary — that makes it information.", "id": 8}, {"topic": "6.1", "sub": "evolution", "q": "Which ancient device is considered one of the earliest tools for calculation?", "options": ["The Abacus", "The Telegraph", "The Punch Card", "The Slide Rule"], "answer": 0, "exp": "The Abacus, used from roughly 2700–2300 BCE in Mesopotamia, is regarded as the earliest calculating tool.", "id": 9}, {"topic": "6.1", "sub": "evolution", "q": "Charles Babbage is widely known as the “Father of the Computer” for designing the:", "options": ["Analytical Engine", "ENIAC", "Universal Turing Machine", "Difference Engine only"], "answer": 0, "exp": "Babbage's 1837 Analytical Engine was a mechanical, general-purpose, programmable computer design.", "id": 10}, {"topic": "6.1", "sub": "evolution", "q": "Who is regarded as the world's first computer programmer, for writing an algorithm for the Analytical Engine?", "options": ["Grace Hopper", "Ada Lovelace", "Hedy Lamarr", "Margaret Hamilton"], "answer": 1, "exp": "Ada Lovelace wrote an algorithm for the Analytical Engine to compute Bernoulli numbers, earning her the title.", "id": 11}, {"topic": "6.1", "sub": "evolution", "q": "Which generation of computers used vacuum tubes as their primary electronic component?", "options": ["First generation (1940s–50s)", "Second generation", "Third generation", "Fourth generation"], "answer": 0, "exp": "First-generation computers such as ENIAC and UNIVAC I relied on bulky, power-hungry vacuum tubes.", "id": 12}, {"topic": "6.1", "sub": "evolution", "q": "The invention of the transistor in 1947 at Bell Labs led to which generation of computers?", "options": ["First generation", "Second generation", "Third generation", "Fifth generation"], "answer": 1, "exp": "Transistors, invented by Bardeen, Brattain and Shockley in 1947, defined the smaller and more reliable second generation.", "id": 13}, {"topic": "6.1", "sub": "evolution", "q": "Third-generation computers (1960s–1970s) are mainly characterised by the use of:", "options": ["Vacuum tubes", "Transistors", "Integrated Circuits (ICs)", "Microprocessors"], "answer": 2, "exp": "ICs, pioneered by Jack Kilby (1958) and Robert Noyce (1959), packed many transistors onto one chip.", "id": 14}, {"topic": "6.1", "sub": "evolution", "q": "The fourth generation of computers is defined by the introduction of the:", "options": ["Integrated Circuit", "Microprocessor", "Vacuum Tube", "Artificial Intelligence chip"], "answer": 1, "exp": "Intel's 4004 (1971) was the first single-chip microprocessor, marking the start of the fourth generation.", "id": 15}, {"topic": "6.1", "sub": "evolution", "q": "Which fifth-generation computing concept focuses on enabling machines to “think” and learn?", "options": ["Artificial Intelligence", "Integrated Circuits", "Transistors", "Vacuum tubes"], "answer": 0, "exp": "Fifth-generation computing is associated with AI, parallel processing and natural-language systems.", "id": 16}, {"topic": "6.1", "sub": "evolution", "q": "ENIAC, widely cited as the first general-purpose electronic digital computer, became operational in:", "options": ["1936", "1946", "1971", "1981"], "answer": 1, "exp": "ENIAC was completed in 1945 and became operational in 1946.", "id": 17}, {"topic": "6.1", "sub": "evolution", "q": "Herman Hollerith's punched-card tabulating machine, used for the 1890 US Census, eventually led (through mergers) to the founding of which company?", "options": ["Microsoft", "IBM", "Apple", "Intel"], "answer": 1, "exp": "Hollerith's Tabulating Machine Company merged with others in 1924 to form IBM.", "id": 18}, {"topic": "6.1", "sub": "evolution", "q": "“Moore's Law,” an observation important to the evolution of ICT, predicts that:", "options": ["Internet speed doubles every year", "The number of transistors on a microchip doubles roughly every two years", "Computer prices double every decade", "Software bugs double with code size"], "answer": 1, "exp": "Gordon Moore's 1965 observation predicted transistor density on chips would double approximately every two years.", "id": 19}, {"topic": "6.1", "sub": "evolution", "q": "Which sequence correctly orders the generations of computers, oldest to newest, by primary technology?", "options": ["Microprocessor → IC → Transistor → Vacuum Tube", "Vacuum Tube → Transistor → IC → Microprocessor", "Transistor → Vacuum Tube → Microprocessor → IC", "IC → Microprocessor → Transistor → Vacuum Tube"], "answer": 1, "exp": "The standard progression is Vacuum Tube (1st) → Transistor (2nd) → IC (3rd) → Microprocessor (4th).", "id": 20}, {"topic": "6.1", "sub": "evolution", "q": "The term “ICT” expands to:", "options": ["Information and Computer Technology", "Information and Communication Technology", "Internet and Computing Tools", "Integrated Computer Technology"], "answer": 1, "exp": "ICT stands for Information and Communication Technology.", "id": 21}, {"topic": "6.1", "sub": "evolution", "q": "Which was the first general-purpose electronic digital computer, able to be reprogrammed to solve different kinds of problems?", "options": ["Z3", "Colossus", "ENIAC", "UNIVAC"], "answer": 2, "exp": "ENIAC (1945/46) is traditionally cited as the first general-purpose electronic digital computer; Colossus was special-purpose.", "id": 22}, {"topic": "6.1", "sub": "evolution", "q": "The merging of computing, telecommunication and broadcasting technologies into a single digital ecosystem is often called:", "options": ["Digital divide", "Technological convergence", "Data redundancy", "Bandwidth throttling"], "answer": 1, "exp": "Technological convergence describes how computing, telecom and broadcasting merged, giving rise to modern ICT.", "id": 23}, {"topic": "6.1", "sub": "digital_devices", "q": "A digital device represents data using:", "options": ["Continuous analog waveforms", "Discrete binary values (0s and 1s)", "Only decimal numbers", "Only text characters"], "answer": 1, "exp": "Digital devices encode data as discrete binary values, unlike analog devices which use continuously varying signals.", "id": 24}, {"topic": "6.1", "sub": "digital_devices", "q": "Which of the following is NOT a digital device?", "options": ["Smartphone", "Traditional mercury thermometer", "Digital camera", "Smartwatch"], "answer": 1, "exp": "A mercury thermometer measures temperature using a continuously varying physical change — it is an analog device.", "id": 25}, {"topic": "6.1", "sub": "digital_devices", "q": "IBM's Simon Personal Communicator, often credited as the first true smartphone, was released in:", "options": ["1973", "1994", "2001", "2007"], "answer": 1, "exp": "The IBM Simon was announced in 1992 and released commercially in 1994.", "id": 26}, {"topic": "6.1", "sub": "digital_devices", "q": "The release of which device in 2007 is widely credited with popularising the modern smartphone era?", "options": ["BlackBerry 5810", "Apple iPhone", "Nokia 3310", "Motorola DynaTAC"], "answer": 1, "exp": "The original iPhone (2007) popularised the multi-touch, app-based smartphone we know today.", "id": 27}, {"topic": "6.1", "sub": "digital_devices", "q": "IoT stands for:", "options": ["Internet of Telecommunication", "Internet of Things", "Integration of Technology", "Input/Output Terminal"], "answer": 1, "exp": "IoT (Internet of Things) refers to everyday objects embedded with sensors and connectivity to exchange data.", "id": 28}, {"topic": "6.1", "sub": "digital_devices", "q": "A wearable digital device that tracks heart rate, steps, and notifications is an example of:", "options": ["A mainframe computer", "A smart wearable device", "An analog device", "A punch card reader"], "answer": 1, "exp": "Smartwatches and fitness bands are categorised as smart wearable digital devices.", "id": 29}, {"topic": "6.1", "sub": "digital_devices", "q": "Which characteristic distinguishes digital devices from analog devices?", "options": ["They process continuously varying signals", "They process data in discrete binary form, which is more resistant to noise", "They cannot store data", "They require vacuum tubes"], "answer": 1, "exp": "Binary, discrete representation makes digital signals easier to copy and more resistant to noise than analog signals.", "id": 30}, {"topic": "6.1", "sub": "digital_devices", "q": "Tablets, e-readers, and smart TVs are all examples of:", "options": ["Analog devices", "Consumer digital devices", "Mainframe computers", "Communication protocols"], "answer": 1, "exp": "These are all everyday consumer digital devices that process data in binary form.", "id": 31}, {"topic": "6.1", "sub": "digital_devices", "q": "The long-term trend allowing digital devices to become smaller, faster and cheaper is mainly driven by advances in:", "options": ["Vacuum tube technology", "Semiconductor / microprocessor technology", "Punch card systems", "Analog signal processing"], "answer": 1, "exp": "Continual progress in semiconductor and microprocessor manufacturing (Moore's Law) drives device miniaturisation.", "id": 32}, {"topic": "6.1", "sub": "digital_devices", "q": "The process that converts an analog signal, like sound, into a digital signal for a device to process is called:", "options": ["Modulation", "Analog-to-Digital Conversion (ADC)", "Compression", "Encryption"], "answer": 1, "exp": "ADC converts continuously varying analog signals into discrete digital values a computer can process.", "id": 33}, {"topic": "6.1", "sub": "comm_systems", "q": "The first practical long-distance electrical communication system was the:", "options": ["Telephone", "Electrical Telegraph", "Radio", "Internet"], "answer": 1, "exp": "The electric telegraph (Samuel Morse, demonstrated 1844) predates the telephone (1876).", "id": 34}, {"topic": "6.1", "sub": "comm_systems", "q": "Samuel Morse is best known for developing:", "options": ["The telephone", "The electric telegraph and Morse code", "The radio", "The internet"], "answer": 1, "exp": "Morse developed the electric telegraph and the Morse code system for transmitting messages.", "id": 35}, {"topic": "6.1", "sub": "comm_systems", "q": "Alexander Graham Bell is credited with patenting the first practical:", "options": ["Telegraph", "Telephone", "Television", "Computer"], "answer": 1, "exp": "Bell patented the telephone in 1876, enabling real-time voice communication over wires.", "id": 36}, {"topic": "6.1", "sub": "comm_systems", "q": "Guglielmo Marconi is best known as a pioneer of:", "options": ["Wireless radio communication", "Television broadcasting", "Telephone networks", "Fibre optics"], "answer": 0, "exp": "Marconi pioneered long-distance wireless radio communication in the 1890s–1900s.", "id": 37}, {"topic": "6.1", "sub": "comm_systems", "q": "The first active communications satellite, Telstar 1 (1962), helped enable:", "options": ["The first transatlantic telegraph", "Live transatlantic television and telephone transmission", "The first mobile phone call", "The first email"], "answer": 1, "exp": "Telstar 1 enabled the first live transatlantic television and telephone signals via satellite.", "id": 38}, {"topic": "6.1", "sub": "comm_systems", "q": "The first handheld mobile phone call was made by Martin Cooper of Motorola in:", "options": ["1963", "1973", "1983", "1993"], "answer": 1, "exp": "Martin Cooper made the first handheld mobile call in 1973.", "id": 39}, {"topic": "6.1", "sub": "comm_systems", "q": "ARPANET, the precursor to the modern internet, went live in which decade?", "options": ["1950s", "1960s", "1980s", "1990s"], "answer": 1, "exp": "ARPANET, developed by the US Department of Defense, went live in 1969.", "id": 40}, {"topic": "6.1", "sub": "comm_systems", "q": "The World Wide Web (WWW) was invented by Tim Berners-Lee in:", "options": ["1969", "1983", "1989", "1995"], "answer": 2, "exp": "Tim Berners-Lee invented the World Wide Web at CERN in 1989.", "id": 41}, {"topic": "6.1", "sub": "comm_systems", "q": "The first network email was sent by Ray Tomlinson in:", "options": ["1965", "1971", "1981", "1991"], "answer": 1, "exp": "Ray Tomlinson sent the first network email in 1971.", "id": 42}, {"topic": "6.1", "sub": "comm_systems", "q": "Ray Tomlinson chose the “@” symbol in email addresses to separate:", "options": ["The subject from the body", "The username from the host/computer name", "The sender from the receiver", "The domain from the protocol"], "answer": 1, "exp": "The “@” symbol separates the username from the name of the host computer in an email address.", "id": 43}, {"topic": "6.1", "sub": "comm_systems", "q": "TCP/IP, the foundational protocol suite of the internet, became the official ARPANET standard around:", "options": ["1969", "1983", "1991", "2000"], "answer": 1, "exp": "TCP/IP was officially adopted as the ARPANET standard on 1 January 1983.", "id": 44}, {"topic": "6.1", "sub": "comm_systems", "q": "Which generation of mobile networks is most associated with the introduction of widespread mobile broadband internet?", "options": ["1G", "2G", "3G", "5G"], "answer": 2, "exp": "3G networks brought widespread mobile broadband internet access, building on 2G's limited data services.", "id": 45}, {"topic": "6.1", "sub": "comm_systems", "q": "1G mobile networks, introduced in the early 1980s, were based on:", "options": ["Digital signals", "Analog signals", "Fibre optics", "Satellite-only links"], "answer": 1, "exp": "1G networks carried voice calls using analog signal transmission.", "id": 46}, {"topic": "6.1", "sub": "comm_systems", "q": "Which communication system uses a dedicated path through a central exchange to connect a call between two users?", "options": ["Packet switching", "Circuit switching", "Cell switching", "Message switching"], "answer": 1, "exp": "Circuit switching, used in traditional telephony, reserves a dedicated path for the duration of the call.", "id": 47}, {"topic": "6.1", "sub": "comm_systems", "q": "In data communication, “bandwidth” refers to:", "options": ["The physical length of a cable", "The amount of data that can be transmitted over a channel in a given time", "The number of users on a network", "The cost of an internet connection"], "answer": 1, "exp": "Bandwidth measures the data-carrying capacity of a communication channel over a period of time.", "id": 48}, {"topic": "6.1", "sub": "comm_systems", "q": "Which of these is a wireless technology used for short-range data exchange between nearby devices?", "options": ["Bluetooth", "Coaxial cable", "Optical fibre", "Twisted pair cable"], "answer": 0, "exp": "Bluetooth is designed for short-range wireless data exchange between devices.", "id": 49}, {"topic": "6.1", "sub": "comm_systems", "q": "5G mobile networks, commercially launched starting in 2019, primarily aim to provide:", "options": ["Slower but more reliable analog voice calls", "Higher speed, lower latency, and massive device connectivity", "Only SMS text messaging", "Telegraph-based communication"], "answer": 1, "exp": "5G is designed to deliver very high data speeds, low latency, and support for many connected devices.", "id": 50}, {"topic": "6.2", "sub": "cpu", "q": "CPU stands for:", "options": ["Central Processing Unit", "Central Program Utility", "Computer Processing Unit", "Central Processor Underline"], "answer": 0, "exp": "CPU is short for Central Processing Unit, the primary component that executes instructions.", "id": 51}, {"topic": "6.2", "sub": "cpu", "q": "The two main components of the CPU are the Control Unit (CU) and the:", "options": ["Arithmetic Logic Unit (ALU)", "Random Access Memory", "Hard Disk Drive", "Motherboard"], "answer": 0, "exp": "The CU directs operations while the ALU performs arithmetic and logical operations — together they form the CPU's core.", "id": 52}, {"topic": "6.2", "sub": "cpu", "q": "The CPU design, proposed in 1945, where instructions and data share the same memory and bus is known as:", "options": ["Harvard architecture", "Von Neumann architecture", "RISC architecture", "Pipeline architecture"], "answer": 1, "exp": "John von Neumann's 1945 report described the architecture where program and data share memory — used in most modern CPUs.", "id": 53}, {"topic": "6.2", "sub": "cpu", "q": "The first commercially available single-chip microprocessor, the Intel 4004, was released in:", "options": ["1969", "1971", "1981", "1991"], "answer": 1, "exp": "The Intel 4004, the first commercial single-chip microprocessor, was released in 1971.", "id": 54}, {"topic": "6.2", "sub": "cpu", "q": "Small, extremely fast storage locations inside the CPU that hold data being processed are called:", "options": ["Cache memory", "Registers", "RAM", "ROM"], "answer": 1, "exp": "Registers are tiny, very fast storage locations built directly into the CPU.", "id": 55}, {"topic": "6.2", "sub": "cpu", "q": "The CPU component responsible for performing mathematical calculations and logical comparisons is the:", "options": ["Control Unit", "Arithmetic Logic Unit (ALU)", "Cache memory", "Bus"], "answer": 1, "exp": "The ALU carries out all arithmetic operations and logical comparisons within the CPU.", "id": 56}, {"topic": "6.2", "sub": "cpu", "q": "A CPU's “clock speed,” measured in GHz, indicates:", "options": ["The amount of storage available", "The number of instruction cycles the CPU can perform per second", "The number of cores", "The amount of RAM installed"], "answer": 1, "exp": "Clock speed measures how many instruction cycles a CPU can execute each second.", "id": 57}, {"topic": "6.2", "sub": "cpu", "q": "A CPU with multiple independent processing units on a single chip, able to execute several instruction streams at once, is called a:", "options": ["Single-core processor", "Multi-core processor", "Vacuum tube processor", "Co-processor only"], "answer": 1, "exp": "Multi-core processors integrate several independent cores on one chip for parallel execution.", "id": 58}, {"topic": "6.2", "sub": "cpu", "q": "The basic instruction cycle performed by a CPU is commonly described as:", "options": ["Store-Save-Send", "Fetch-Decode-Execute", "Input-Process-Output", "Read-Write-Compile"], "answer": 1, "exp": "Every CPU instruction goes through the Fetch → Decode → Execute cycle.", "id": 59}, {"topic": "6.2", "sub": "cpu", "q": "RISC, a CPU design philosophy used in many mobile processors (e.g., ARM), stands for:", "options": ["Reduced Instruction Set Computer", "Rapid Integrated System Chip", "Random Instruction Set Computing", "Realtime Instruction Sequencing Chip"], "answer": 0, "exp": "RISC stands for Reduced Instruction Set Computer, a design using a small, highly optimised set of instructions.", "id": 60}, {"topic": "6.2", "sub": "cpu", "q": "Gordon Moore, co-founder of Intel, is best known for his 1965 prediction now called:", "options": ["Moore's Law", "Boolean's Law", "Turing's Law", "Shannon's Law"], "answer": 0, "exp": "Moore's Law predicts that transistor density on chips roughly doubles every two years.", "id": 61}, {"topic": "6.2", "sub": "cpu", "q": "Small, very fast memory built close to or inside the CPU that stores frequently used data to speed up processing is called:", "options": ["Virtual memory", "Cache memory", "Secondary storage", "ROM"], "answer": 1, "exp": "Cache memory sits near the CPU and stores frequently accessed data to reduce access delays.", "id": 62}, {"topic": "6.2", "sub": "ram_rom", "q": "RAM stands for:", "options": ["Random Access Memory", "Read Access Memory", "Rapid Access Module", "Read-only Allocated Memory"], "answer": 0, "exp": "RAM stands for Random Access Memory, the computer's main working memory.", "id": 63}, {"topic": "6.2", "sub": "ram_rom", "q": "RAM is classified as ______ memory because its contents are lost when power is turned off.", "options": ["Non-volatile", "Volatile", "Static", "Permanent"], "answer": 1, "exp": "RAM is volatile memory — all stored data is lost the moment power is removed.", "id": 64}, {"topic": "6.2", "sub": "ram_rom", "q": "ROM stands for:", "options": ["Read Only Memory", "Random Output Memory", "Rapid Operating Memory", "Read Output Module"], "answer": 0, "exp": "ROM stands for Read Only Memory, which is non-volatile.", "id": 65}, {"topic": "6.2", "sub": "ram_rom", "q": "ROM is primarily used to store:", "options": ["User documents", "Firmware/startup instructions, like the BIOS, that rarely change", "Temporary running applications", "Downloaded videos"], "answer": 1, "exp": "ROM holds firmware such as the BIOS — essential startup instructions that don't normally change.", "id": 66}, {"topic": "6.2", "sub": "ram_rom", "q": "Dynamic RAM (DRAM) needs to be ______ to retain its stored data.", "options": ["Refreshed periodically", "Defragmented", "Compiled", "Formatted"], "answer": 0, "exp": "DRAM cells leak charge over time and must be electrically refreshed thousands of times per second.", "id": 67}, {"topic": "6.2", "sub": "ram_rom", "q": "Which type of ROM can be erased and reprogrammed by exposing it to ultraviolet light?", "options": ["PROM", "EPROM", "EEPROM", "Flash memory only"], "answer": 1, "exp": "EPROM (Erasable Programmable ROM) is erased using ultraviolet light and can then be reprogrammed.", "id": 68}, {"topic": "6.2", "sub": "ram_rom", "q": "The semiconductor DRAM cell, foundational to modern RAM, was patented by Robert Dennard at IBM in:", "options": ["1958", "1968", "1978", "1988"], "answer": 1, "exp": "Robert Dennard patented the single-transistor DRAM cell at IBM in 1968.", "id": 69}, {"topic": "6.2", "sub": "ram_rom", "q": "Compared to DRAM, Static RAM (SRAM) is generally:", "options": ["Slower and cheaper", "Faster, but more expensive, and commonly used for cache memory", "Non-volatile", "Used only as secondary storage"], "answer": 1, "exp": "SRAM is faster than DRAM and doesn't need refreshing, but is costlier — making it ideal for CPU cache.", "id": 70}, {"topic": "6.2", "sub": "storage", "q": "Herman Hollerith's punched cards, used to tabulate the 1890 US Census, are considered:", "options": ["An early form of mechanical data storage", "A modern SSD predecessor only", "A communication protocol", "An output device only"], "answer": 0, "exp": "Punched cards were an early mechanical means of storing and tabulating data.", "id": 71}, {"topic": "6.2", "sub": "storage", "q": "The first commercial hard disk drive, IBM's RAMAC 305, was introduced in:", "options": ["1946", "1956", "1966", "1976"], "answer": 1, "exp": "IBM introduced the RAMAC 305, the first commercial hard disk drive, in 1956.", "id": 72}, {"topic": "6.2", "sub": "storage", "q": "IBM introduced the 8-inch floppy disk, one of the earliest portable magnetic storage media, around:", "options": ["1961", "1971", "1981", "1991"], "answer": 1, "exp": "IBM introduced the 8-inch floppy disk in 1971.", "id": 73}, {"topic": "6.2", "sub": "storage", "q": "Secondary storage is best described as:", "options": ["Volatile memory inside the CPU", "Non-volatile memory used for long-term data storage", "Cache memory only", "Registers in the CPU"], "answer": 1, "exp": "Secondary storage (like HDDs and SSDs) is non-volatile and used for long-term data storage.", "id": 74}, {"topic": "6.2", "sub": "storage", "q": "The CD (Compact Disc), an early optical storage medium, was commercially introduced in:", "options": ["1972", "1982", "1992", "2002"], "answer": 1, "exp": "The Compact Disc was commercially launched in 1982.", "id": 75}, {"topic": "6.2", "sub": "storage", "q": "Solid State Drives (SSDs) store data using:", "options": ["Spinning magnetic platters", "Flash memory chips with no moving parts", "Magnetic tape reels", "Punched holes in paper"], "answer": 1, "exp": "SSDs use flash memory chips and contain no moving mechanical parts, unlike HDDs.", "id": 76}, {"topic": "6.2", "sub": "storage", "q": "Magnetic tape, first used commercially in computing with UNIVAC in the early 1950s, is mainly used today for:", "options": ["Primary memory in smartphones", "Long-term archival and backup storage", "CPU cache", "Real-time gaming storage"], "answer": 1, "exp": "Magnetic tape remains a cost-effective medium for long-term archival and backup storage.", "id": 77}, {"topic": "6.2", "sub": "storage", "q": "Compared to HDDs, SSDs generally offer:", "options": ["Slower read/write speeds", "Faster read/write speeds and better durability due to no moving parts", "Lower cost per gigabyte", "Magnetic-only data storage"], "answer": 1, "exp": "SSDs are typically faster and more durable than HDDs because they have no moving mechanical parts.", "id": 78}, {"topic": "6.2", "sub": "storage", "q": "Storing data on remote servers accessed via the internet, rather than on a local device, is known as:", "options": ["Cache storage", "Cloud storage", "ROM storage", "Register storage"], "answer": 1, "exp": "Cloud storage keeps data on remote servers accessed over the internet rather than on a local device.", "id": 79}, {"topic": "6.2", "sub": "storage", "q": "Which option correctly orders storage capacity units from smallest to largest?", "options": ["Byte → Bit → Kilobyte → Megabyte", "Bit → Byte → Kilobyte → Megabyte → Gigabyte", "Megabyte → Gigabyte → Byte → Bit", "Kilobyte → Bit → Byte → Gigabyte"], "answer": 1, "exp": "The standard hierarchy runs Bit < Byte < Kilobyte < Megabyte < Gigabyte < Terabyte.", "id": 80}, {"topic": "6.2", "sub": "io_devices", "q": "A device used to enter data and instructions into a computer is called a(n):", "options": ["Output device", "Input device", "Storage device", "System software"], "answer": 1, "exp": "Input devices, like a keyboard or mouse, are used to enter data and commands into a computer.", "id": 81}, {"topic": "6.2", "sub": "io_devices", "q": "The computer mouse, invented by Douglas Engelbart, was famously publicly demonstrated in:", "options": ["1954", "1968", "1974", "1984"], "answer": 1, "exp": "Engelbart invented the mouse in 1964 and demonstrated it publicly in 1968's “The Mother of All Demos.”", "id": 82}, {"topic": "6.2", "sub": "io_devices", "q": "Which of the following is an output device?", "options": ["Keyboard", "Scanner", "Monitor", "Microphone"], "answer": 2, "exp": "A monitor displays processed results to the user, making it an output device.", "id": 83}, {"topic": "6.2", "sub": "io_devices", "q": "A device that converts a printed or handwritten document into a digital image is called a:", "options": ["Printer", "Scanner", "Plotter", "Projector"], "answer": 1, "exp": "A scanner captures a physical document and converts it into a digital image.", "id": 84}, {"topic": "6.2", "sub": "io_devices", "q": "Which input device is primarily used to convert sound into digital signals?", "options": ["Speaker", "Microphone", "Monitor", "Printer"], "answer": 1, "exp": "A microphone captures sound and converts it into a digital (or electrical) signal for processing.", "id": 85}, {"topic": "6.2", "sub": "io_devices", "q": "Touchscreens, common in modern smartphones and tablets, function as:", "options": ["Output-only devices", "Combined input and output devices", "Storage devices", "Communication devices only"], "answer": 1, "exp": "Touchscreens both display visual output and accept touch input, making them combined I/O devices.", "id": 86}, {"topic": "6.2", "sub": "io_devices", "q": "A device that produces a hard copy (paper output) of digital documents is called a:", "options": ["Scanner", "Printer", "Webcam", "Microphone"], "answer": 1, "exp": "A printer converts digital documents into physical, paper-based (hard copy) output.", "id": 87}, {"topic": "6.2", "sub": "io_devices", "q": "QWERTY, the most widely used keyboard layout, was originally designed in the 1870s by:", "options": ["Douglas Engelbart", "Christopher Latham Sholes", "Alan Turing", "Charles Babbage"], "answer": 1, "exp": "Christopher Latham Sholes designed the QWERTY layout for early typewriters in the 1870s.", "id": 88}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Software that manages computer hardware and provides a platform for application software to run is called:", "options": ["Application software", "System software", "Firmware only", "Utility documents"], "answer": 1, "exp": "System software, such as the operating system, manages hardware and underlies all application software.", "id": 89}, {"topic": "6.2", "sub": "sys_app_sw", "q": "The Operating System (OS) is the most essential example of:", "options": ["Application software", "System software", "Database software", "A programming language"], "answer": 1, "exp": "The OS is the core example of system software, managing hardware resources and running other programs.", "id": 90}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Software designed to help users perform specific tasks, like word processing or spreadsheets, is called:", "options": ["System software", "Application software", "A device driver", "Firmware"], "answer": 1, "exp": "Application software helps users perform specific tasks such as writing documents or managing spreadsheets.", "id": 91}, {"topic": "6.2", "sub": "sys_app_sw", "q": "GM-NAA I/O, developed for the IBM 704 in 1956, is widely considered one of the first:", "options": ["Application software programs", "Operating systems", "Web browsers", "Antivirus programs"], "answer": 1, "exp": "GM-NAA I/O (1956) is regarded as one of the earliest operating systems.", "id": 92}, {"topic": "6.2", "sub": "sys_app_sw", "q": "UNIX, whose design influenced many modern operating systems including Linux and macOS, was originally developed at Bell Labs starting in:", "options": ["1959", "1969", "1979", "1989"], "answer": 1, "exp": "UNIX development began at Bell Labs in 1969 and went on to influence countless later operating systems.", "id": 93}, {"topic": "6.2", "sub": "sys_app_sw", "q": "MS-DOS, Microsoft's early operating system for IBM-compatible PCs, was released in:", "options": ["1971", "1981", "1991", "2001"], "answer": 1, "exp": "Microsoft released MS-DOS in 1981 for IBM-compatible personal computers.", "id": 94}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Linus Torvalds began developing the Linux kernel, a free and open-source operating system, in:", "options": ["1981", "1991", "2001", "2011"], "answer": 1, "exp": "Linus Torvalds started developing the Linux kernel in 1991.", "id": 95}, {"topic": "6.2", "sub": "sys_app_sw", "q": "A program that translates an entire high-level language program into machine code before it runs is called a:", "options": ["Interpreter", "Compiler", "Device driver", "Linker only"], "answer": 1, "exp": "A compiler translates the whole source program into machine code before execution begins.", "id": 96}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Unlike a compiler, an interpreter:", "options": ["Translates and executes code line-by-line", "Translates the entire program before execution", "Only works with machine code", "Is a type of hardware"], "answer": 0, "exp": "An interpreter translates and immediately executes a program's instructions one line at a time.", "id": 97}, {"topic": "6.2", "sub": "sys_app_sw", "q": "System software that lets the operating system communicate with a specific hardware component, like a printer, is called a:", "options": ["Compiler", "Device driver", "Spreadsheet program", "Web browser"], "answer": 1, "exp": "Device drivers are small programs that let the OS communicate with specific hardware components.", "id": 98}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Utility software, a category of system software, is mainly designed to:", "options": ["Replace the operating system", "Perform maintenance tasks like disk cleanup, antivirus scanning, and file compression", "Create documents and presentations", "Browse the internet only"], "answer": 1, "exp": "Utility software performs supporting maintenance tasks such as disk cleanup, virus scanning and compression.", "id": 99}, {"topic": "6.2", "sub": "sys_app_sw", "q": "Microsoft Windows, first released as a graphical extension for MS-DOS, launched its first version in:", "options": ["1975", "1985", "1995", "2005"], "answer": 1, "exp": "The first version of Microsoft Windows was released in 1985.", "id": 100}];
+const SUBTOPIC_META = {"data_info": {"code": "6.1.1", "label": "Data & Information", "parent": "6.1"}, "evolution": {"code": "6.1.2", "label": "Evolution of ICT", "parent": "6.1"}, "digital_devices": {"code": "6.1.3", "label": "Digital Devices", "parent": "6.1"}, "comm_systems": {"code": "6.1.4", "label": "Communication Systems", "parent": "6.1"}, "cpu": {"code": "6.2.1", "label": "CPU", "parent": "6.2"}, "ram_rom": {"code": "6.2.2", "label": "RAM & ROM", "parent": "6.2"}, "storage": {"code": "6.2.3", "label": "Storage Devices", "parent": "6.2"}, "io_devices": {"code": "6.2.4", "label": "Input / Output Devices", "parent": "6.2"}, "sys_app_sw": {"code": "6.2.5", "label": "System & Application Software", "parent": "6.2"}};
+
+/* ============================================================
+   ICT Olympiad Prep — exam engine
+   ============================================================ */
+
+const state = {
+  examQuestions: [],
+  currentIndex: 0,
+  answers: {},
+  flagged: new Set(),
+  timerEnabled: true,
+  secondsPerQ: 60,
+  timeRemaining: 0,
+  timerHandle: null,
+  startedAt: null,
+  reviewFilter: 'all'
+};
+
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str == null ? '' : String(str);
+  return d.innerHTML;
+}
+
+function shuffleArray(arr){
+  for(let i = arr.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+/* ---------------- Tabs ---------------- */
+function showTab(tab){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById(tab);
+  if(panel) panel.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+}
+
+/* ---------------- Setup screen ---------------- */
+function getSelectedSubs(){
+  return Array.from(document.querySelectorAll('.sub-check:checked')).map(cb => cb.value);
+}
+
+function availableCount(){
+  const subs = getSelectedSubs();
+  return QUESTIONS.filter(q => subs.includes(q.sub)).length;
+}
+
+function updateAvailableCount(){
+  const avail = availableCount();
+  const availEl = document.getElementById('availableCount');
+  if(availEl) availEl.textContent = avail;
+  const countInput = document.getElementById('qCount');
+  if(countInput){
+    countInput.max = avail || 1;
+    if(avail === 0){
+      countInput.value = 0;
+    } else if(parseInt(countInput.value, 10) > avail || !countInput.value){
+      countInput.value = Math.min(25, avail);
+    }
+  }
+  const startBtn = document.getElementById('startBtn');
+  if(startBtn) startBtn.disabled = avail === 0;
+}
+
+function wireSetupControls(){
+  document.querySelectorAll('.sub-check').forEach(cb => cb.addEventListener('change', updateAvailableCount));
+
+  document.querySelectorAll('.quick-btn[data-mode]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      document.querySelectorAll('.sub-check').forEach(cb => {
+        const parent = cb.closest('.topic-group').dataset.parent;
+        if(mode === 'all') cb.checked = true;
+        else if(mode === '61') cb.checked = (parent === '6.1');
+        else if(mode === '62') cb.checked = (parent === '6.2');
+        else if(mode === 'clear') cb.checked = false;
+      });
+      updateAvailableCount();
+    });
+  });
+
+  document.querySelectorAll('.count-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const avail = availableCount();
+      const mode = btn.dataset.count;
+      const countInput = document.getElementById('qCount');
+      countInput.value = mode === 'max' ? avail : Math.min(parseInt(mode, 10), avail);
+    });
+  });
+
+  document.getElementById('startBtn').addEventListener('click', startExam);
+}
+
+function takeQuizFor(subKey){
+  showTab('examTab');
+  document.querySelectorAll('.sub-check').forEach(cb => { cb.checked = (cb.value === subKey); });
+  updateAvailableCount();
+  const countInput = document.getElementById('qCount');
+  countInput.value = Math.min(parseInt(countInput.max, 10) || 1, availableCount());
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------------- Exam flow ---------------- */
+function startExam(){
+  const subs = getSelectedSubs();
+  if(subs.length === 0) return;
+
+  let pool = QUESTIONS.filter(q => subs.includes(q.sub));
+  const shuffleQ = document.getElementById('shuffleQ').checked;
+  pool = shuffleQ ? shuffleArray(pool.slice()) : pool.slice();
+
+  let count = parseInt(document.getElementById('qCount').value, 10) || 1;
+  count = Math.max(1, Math.min(count, pool.length));
+  pool = pool.slice(0, count);
+
+  const shuffleOpt = document.getElementById('shuffleOpt').checked;
+  state.examQuestions = pool.map(q => {
+    const idxs = shuffleOpt ? shuffleArray([0, 1, 2, 3]) : [0, 1, 2, 3];
+    return Object.assign({}, q, {
+      displayOptions: idxs.map(i => ({ text: q.options[i], origIdx: i }))
+    });
+  });
+
+  state.currentIndex = 0;
+  state.answers = {};
+  state.flagged = new Set();
+  state.reviewFilter = 'all';
+
+  const pace = parseInt(document.getElementById('paceSelect').value, 10);
+  state.timerEnabled = pace > 0;
+  state.secondsPerQ = pace;
+  state.timeRemaining = pace > 0 ? pace * state.examQuestions.length : 0;
+  state.startedAt = Date.now();
+
+  buildPalette();
+  renderQuestion();
+
+  document.getElementById('examSetup').classList.add('hidden');
+  document.getElementById('examResults').classList.add('hidden');
+  document.getElementById('examRunning').classList.remove('hidden');
+
+  const timerEl = document.getElementById('examTimerDisplay');
+  if(state.timerEnabled){
+    timerEl.classList.remove('hidden');
+    startTimer();
+  } else {
+    timerEl.classList.add('hidden');
+    if(state.timerHandle) clearInterval(state.timerHandle);
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderQuestion(){
+  const q = state.examQuestions[state.currentIndex];
+  if(!q) return;
+
+  document.getElementById('qProgress').textContent =
+    'Question ' + (state.currentIndex + 1) + ' of ' + state.examQuestions.length;
+
+  const meta = SUBTOPIC_META[q.sub];
+  document.getElementById('qBadge').textContent = meta.code + ' \u00B7 ' + meta.label;
+  document.getElementById('qText').textContent = q.q;
+
+  const list = document.getElementById('optionsList');
+  list.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  q.displayOptions.forEach((opt, i) => {
+    const row = document.createElement('label');
+    const isSelected = state.answers[q.id] === opt.origIdx;
+    row.className = 'option-row' + (isSelected ? ' selected' : '');
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'opt';
+    radio.checked = isSelected;
+    radio.addEventListener('change', () => selectAnswer(q.id, opt.origIdx));
+
+    const letterSpan = document.createElement('span');
+    letterSpan.className = 'option-letter';
+    letterSpan.textContent = letters[i];
+
+    const textSpan = document.createElement('span');
+    textSpan.textContent = opt.text;
+
+    row.appendChild(radio);
+    row.appendChild(letterSpan);
+    row.appendChild(textSpan);
+    row.addEventListener('click', (e) => {
+      if(e.target.tagName !== 'INPUT'){ radio.checked = true; selectAnswer(q.id, opt.origIdx); }
+    });
+
+    list.appendChild(row);
+  });
+
+  const flagBtn = document.getElementById('flagBtn');
+  flagBtn.classList.toggle('flagged', state.flagged.has(q.id));
+  flagBtn.innerHTML = state.flagged.has(q.id) ? '\u2605 Flagged' : '\u2606 Flag';
+
+  document.getElementById('prevBtn').disabled = state.currentIndex === 0;
+  document.getElementById('nextBtn').disabled = state.currentIndex === state.examQuestions.length - 1;
+
+  updatePaletteHighlight();
+}
+
+function selectAnswer(id, idx){
+  state.answers[id] = idx;
+  renderQuestion();
+}
+
+function toggleFlag(){
+  const q = state.examQuestions[state.currentIndex];
+  if(!q) return;
+  if(state.flagged.has(q.id)) state.flagged.delete(q.id);
+  else state.flagged.add(q.id);
+  renderQuestion();
+}
+
+function goPrev(){
+  if(state.currentIndex > 0){ state.currentIndex--; renderQuestion(); }
+}
+function goNext(){
+  if(state.currentIndex < state.examQuestions.length - 1){ state.currentIndex++; renderQuestion(); }
+}
+
+function buildPalette(){
+  const grid = document.getElementById('paletteGrid');
+  grid.innerHTML = '';
+  state.examQuestions.forEach((q, i) => {
+    const cell = document.createElement('button');
+    cell.type = 'button';
+    cell.className = 'palette-cell';
+    cell.textContent = String(i + 1);
+    cell.addEventListener('click', () => { state.currentIndex = i; renderQuestion(); });
+    grid.appendChild(cell);
+  });
+}
+
+function updatePaletteHighlight(){
+  const cells = document.querySelectorAll('.palette-cell');
+  state.examQuestions.forEach((q, i) => {
+    const cell = cells[i];
+    if(!cell) return;
+    cell.classList.toggle('answered', state.answers[q.id] !== undefined);
+    cell.classList.toggle('flagged', state.flagged.has(q.id));
+    cell.classList.toggle('current', i === state.currentIndex);
+  });
+}
+
+/* ---------------- Timer ---------------- */
+function startTimer(){
+  if(state.timerHandle) clearInterval(state.timerHandle);
+  updateTimerDisplay();
+  state.timerHandle = setInterval(() => {
+    state.timeRemaining--;
+    updateTimerDisplay();
+    if(state.timeRemaining <= 0){
+      clearInterval(state.timerHandle);
+      submitExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay(){
+  const el = document.getElementById('examTimerDisplay');
+  if(!el) return;
+  const t = Math.max(0, state.timeRemaining);
+  const m = Math.floor(t / 60);
+  const s = t % 60;
+  el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  const totalTime = state.secondsPerQ * state.examQuestions.length;
+  el.classList.toggle('warn', totalTime > 0 && t <= Math.ceil(totalTime * 0.15));
+}
+
+/* ---------------- Submit & results ---------------- */
+function submitExam(auto){
+  if(!auto){
+    const unanswered = state.examQuestions.filter(q => state.answers[q.id] === undefined).length;
+    if(unanswered > 0){
+      const ok = confirm('You have ' + unanswered + ' unanswered question(s). Submit anyway?');
+      if(!ok) return;
+    }
+  }
+  if(state.timerHandle) clearInterval(state.timerHandle);
+  computeResults();
+  document.getElementById('examRunning').classList.add('hidden');
+  document.getElementById('examResults').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scoreColor(pct){
+  if(pct >= 80) return 'var(--signal)';
+  if(pct >= 50) return 'var(--brass)';
+  return 'var(--alert)';
+}
+
+function formatDuration(totalSeconds){
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  return m + 'm ' + s + 's';
+}
+
+function computeResults(){
+  let correct = 0;
+  const subStats = {};
+
+  state.examQuestions.forEach(q => {
+    if(!subStats[q.sub]) subStats[q.sub] = { correct: 0, total: 0 };
+    subStats[q.sub].total++;
+    if(state.answers[q.id] === q.answer){
+      correct++;
+      subStats[q.sub].correct++;
+    }
+  });
+
+  const total = state.examQuestions.length;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  const ring = document.getElementById('scoreRing');
+  ring.style.background = 'conic-gradient(' + scoreColor(pct) + ' ' + pct + '%, var(--line) 0)';
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statFlagged').textContent = state.flagged.size;
+  document.getElementById('statAccuracy').textContent = pct + '%';
+
+  const elapsedSec = state.startedAt ? Math.round((Date.now() - state.startedAt) / 1000) : 0;
+  document.getElementById('statTime').textContent = formatDuration(elapsedSec);
+
+  const bd = document.getElementById('breakdownBars');
+  bd.innerHTML = '';
+  Object.keys(subStats).sort().forEach(sub => {
+    const s = subStats[sub];
+    const p = Math.round((s.correct / s.total) * 100);
+    const meta = SUBTOPIC_META[sub];
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML =
+      '<span class="bar-label">' + escapeHtml(meta.code + ' ' + meta.label) + '</span>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:' + p + '%;background:' + scoreColor(p) + '"></div></div>' +
+      '<span class="bar-value">' + s.correct + '/' + s.total + '</span>';
+    bd.appendChild(row);
+  });
+
+  renderReview('all');
+}
+
+function renderReview(filter){
+  state.reviewFilter = filter;
+  document.querySelectorAll('.review-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+
+  const wrap = document.getElementById('reviewList');
+  wrap.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  state.examQuestions.forEach((q, i) => {
+    const sel = state.answers[q.id];
+    const isCorrect = sel === q.answer;
+    const isFlagged = state.flagged.has(q.id);
+
+    if(filter === 'correct' && !isCorrect) return;
+    if(filter === 'incorrect' && isCorrect) return;
+    if(filter === 'flagged' && !isFlagged) return;
+
+    const meta = SUBTOPIC_META[q.sub];
+    const card = document.createElement('div');
+    card.className = 'review-card ' + (isCorrect ? 'correct' : 'incorrect');
+
+    let optsHtml = '';
+    q.options.forEach((opt, idx) => {
+      let cls = 'review-opt';
+      let suffix = '';
+      if(idx === q.answer){ cls += ' correct-answer'; suffix = ' \u2713'; }
+      else if(idx === sel){ cls += ' wrong-selected'; suffix = ' \u2717'; }
+      optsHtml += '<div class="' + cls + '">' + letters[idx] + '. ' + escapeHtml(opt) + suffix + '</div>';
+    });
+
+    card.innerHTML =
+      '<div class="review-q-head">' +
+        '<span class="q-badge">' + escapeHtml(meta.code + ' \u00B7 Q' + (i + 1)) + '</span>' +
+        (isFlagged ? '<span class="flag-pill">Flagged</span>' : '') +
+      '</div>' +
+      '<div class="review-q-text">' + escapeHtml(q.q) + '</div>' +
+      optsHtml +
+      '<div class="review-exp"><strong>Why:</strong> ' + escapeHtml(q.exp) + '</div>';
+
+    wrap.appendChild(card);
+  });
+
+  if(wrap.children.length === 0){
+    wrap.innerHTML = '<p style="color:var(--ink-soft);font-family:var(--mono);font-size:.85rem;">No questions match this filter.</p>';
+  }
+}
+
+function retakeExam(){
+  document.getElementById('examResults').classList.add('hidden');
+  document.getElementById('examSetup').classList.remove('hidden');
+  updateAvailableCount();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------------- Keyboard shortcuts ---------------- */
+document.addEventListener('keydown', (e) => {
+  const running = document.getElementById('examRunning');
+  if(!running || running.classList.contains('hidden')) return;
+  if(e.key === 'ArrowRight') goNext();
+  else if(e.key === 'ArrowLeft') goPrev();
+  else if(['1', '2', '3', '4'].includes(e.key)){
+    const q = state.examQuestions[state.currentIndex];
+    const idx = parseInt(e.key, 10) - 1;
+    if(q && q.displayOptions[idx]) selectAnswer(q.id, q.displayOptions[idx].origIdx);
+  }
+});
+
+/* ---------------- Init ---------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+  wireSetupControls();
+  updateAvailableCount();
+
+  document.getElementById('prevBtn').addEventListener('click', goPrev);
+  document.getElementById('nextBtn').addEventListener('click', goNext);
+  document.getElementById('flagBtn').addEventListener('click', toggleFlag);
+  document.getElementById('submitBtn').addEventListener('click', () => submitExam(false));
+  document.getElementById('retakeBtn').addEventListener('click', retakeExam);
+  document.querySelectorAll('.review-filter-btn').forEach(b => b.addEventListener('click', () => renderReview(b.dataset.filter)));
+});
+
+</script>
+</body>
+</html>
